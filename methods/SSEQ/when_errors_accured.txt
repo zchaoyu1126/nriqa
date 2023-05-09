@@ -1,0 +1,8 @@
+提示找不到svmxxx，是因为没有安装libsvm
+去https://github.com/cjlin1/libsvm/releases/tag/v323 下载
+安装教程：https://blog.csdn.net/MissXy_/article/details/81239139
+
+注:最好是3.23版本，试过高版本3.31报错
+
+记得把make.m文件下的CFLAGS 替换成COMPFLAGS
+https://blog.csdn.net/qq_15902399/article/details/78583342
