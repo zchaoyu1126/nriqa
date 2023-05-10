@@ -1,4 +1,4 @@
-function [time, score1, score2] = iqa_arism(idx, imgPath)
+function [time, score1] = iqa_arism(idx, imgPath)
     fprintf(1, "arism is calculating the %d th img %s.\n", idx, imgPath);
     
     % 这里的时间计算其实有一些问题
@@ -11,5 +11,5 @@ function [time, score1, score2] = iqa_arism(idx, imgPath)
 
     time = endTime - startTime;
     score1 = score(1);
-    score2 = score(2);
+    % score2 = score(2);
 end

@@ -4,22 +4,24 @@ classdef TaskQueue
     end
     
     methods
-        function obj = addTask(obj, task)
+        function obj = pushTask(obj, task)
             obj.tasks{end+1} = task;
         end
         
-        function [obj, task] = getNextTask(obj)
+        function task = getNextTask(obj)
             if isempty(obj.tasks)
                 task = [];
             else
                 task = obj.tasks{1};
-                obj.tasks = obj.tasks(2:length(obj.tasks));
             end
         end
         
+        function obj = popTask(obj)
+            obj.tasks = obj.tasks(2:length(obj.tasks));
+        end
+
         function len = getQueueLength(obj)
             len = length(obj.tasks);
         end
-
     end
 end

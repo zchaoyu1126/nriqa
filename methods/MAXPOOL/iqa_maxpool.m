@@ -1,6 +1,6 @@
-function [time, score] = iqa_maxpool(idx, imgPath, type)
+function [time, score] = iqa_maxpool(idx, imgPath)
     fprintf(1, "maxpool is calculating the %d th img %s.\n", idx, imgPath);
-    
+    type = 'synthetic';
     %% Load kernel and identify image blur type
     load('..\code\methods\MaxPool\utilities\HVS_MaxPol_kernel.mat');
     params_HVS_MaxPol.kernel_sheets = selected_sheets;
