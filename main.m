@@ -1,15 +1,4 @@
 function main()
-    addpath(genpath('.\methods\ARISM'));
-    addpath(genpath('.\methods\BIBLE'));
-    addpath(genpath('.\methods\BIQI'));
-    addpath(genpath('.\methods\BRISQUE'));
-    addpath(genpath('.\methods\CPBDM'));
-    addpath(genpath('.\methods\DUAN'));
-    addpath(genpath('.\methods\MAXPOOL'));
-    addpath(genpath('.\methods\MLV'));
-    addpath(genpath('.\methods\RISE'));
-    addpath(genpath('.\methods\SSEQ'));
-    
     methodMap = containers.Map();
 
     methodMap('ARISM') = 1; methodMap('BIBLE') = 2; methodMap('BIQI') = 3;
@@ -21,13 +10,12 @@ function main()
         @iqa_duan, @iqa_maxpool, @iqa_mlv, @iqa_rise, @iqa_sseq};
 
     % 根据需要修改参与测试的方法
-    methods = {'ARISM', 'BIBLE', 'BIQI', 'BRISQUE', 'CPBDM', 'DUAN',...
-        'MAXPOOL', 'MLV', 'RISE', 'SSEQ'};
-    % methods = {'MLV'};
-  
+    % methods = {'ARISM', 'BIBLE', 'BIQI', 'BRISQUE', 'CPBDM', ...
+    %    'MAXPOOL', 'MLV', 'RISE', 'SSEQ'};
+    methods = {'MLV'};
+    
     % 根据需要修改参与测试的数据集
     datasets = {'tid2008', 'tid2013', 'csiq', 'live'};
-    % datasets = {'tid2008'};
 
     time_stamp = datestr(now, 30);
     folder = sprintf("./result/%s", time_stamp); %%定义变量
@@ -41,9 +29,10 @@ function main()
             method = handles{methodMap(methods{1, i})};
             paths = getImagePaths(datasets{j});
             fileName = sprintf("%s/%s_%s.mat", folder, methods{1, i}, datasets{j});
-
+            functionDir = sprintf("./methods/%s", methods{1, i});
+            
             task = Task();
-            task = task.init(method, paths, fileName);
+            task = task.init(method, paths, fileName, functionDir);
             queue = queue.pushTask(task);
         end
     end

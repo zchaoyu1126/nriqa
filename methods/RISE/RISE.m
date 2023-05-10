@@ -56,7 +56,7 @@ feature = [SVDfeature GMfeature Efeature];                    %×Ü¹²11¸öÌØÕ÷£¬°üÀ
 
 %% Support Vector Regression 
 feat = feature;
-fid = fopen('test_ind.txt','w');
+fid = fopen('..\code\methods\RISE\test_ind.txt','w');
 for jj = 1:size(feat,1)
 fprintf(fid,'1 ');
 for kk = 1:size(feat,2)
@@ -66,11 +66,11 @@ fprintf(fid,'\n');
 end
 fclose(fid);
 warning off all
-delete output test_ind_scaled dump
-system('..\code\methods\RISE\svm-scale  -r ..\code\methods\RISE\range test_ind.txt >> test_ind_scaled');          %¹éÒ»»¯
-system('..\code\methods\RISE\svm-predict  -b 1  test_ind_scaled ..\code\methods\RISE\model output.txt>dump');     %Ô¤²â·ÖÊý
-load output.txt;
+delete ..\code\methods\RISE\output ..\code\methods\RISE\test_ind_scaled ..\code\methods\RISE\dump
+system('..\code\methods\RISE\svm-scale  -r ..\code\methods\RISE\range ..\code\methods\RISE\test_ind.txt >> ..\code\methods\RISE\test_ind_scaled');          %¹éÒ»»¯
+system('..\code\methods\RISE\svm-predict  -b 1  ..\code\methods\RISE\test_ind_scaled ..\code\methods\RISE\model ..\code\methods\RISE\output.txt>..\code\methods\RISE\dump');     %Ô¤²â·ÖÊý
+load ..\code\methods\RISE\output.txt;
 Score_proposed= output;
 score=Score_proposed';
 
-delete output.txt test_ind.txt test_ind_scaled dump
+delete ..\code\methods\RISE\output.txt ..\code\methods\RISE\test_ind.txt ..\code\methods\RISE\test_ind_scaled ..\code\methods\RISE\dump

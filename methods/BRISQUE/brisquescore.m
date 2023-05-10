@@ -30,8 +30,10 @@ fclose(fid);
 
 warning off all
 delete output test_ind_scaled dump
-system('..\code\methods\BRISQUE\svm-scale -r ..\code\methods\BRISQUE\allrange test_ind >> test_ind_scaled');
-system('..\code\methods\BRISQUE\svm-predict -b 1 test_ind_scaled ..\code\methods\BRISQUE\allmodel output >> dump');
+disp(pwd());
+
+system('.\methods\BRISQUE\svm-scale -r .\methods\BRISQUE\allrange test_ind >> test_ind_scaled');
+system('.\methods\BRISQUE\svm-predict -b 1 test_ind_scaled .\methods\BRISQUE\allmodel output >> dump');
 
 qualityscore = load('output');
 delete output test_ind test_ind_scaled dump

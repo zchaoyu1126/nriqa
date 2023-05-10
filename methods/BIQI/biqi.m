@@ -120,7 +120,7 @@ rep_vec = [mu_horz mu_vert mu_diag sigma_sq_horz sigma_sq_vert sigma_sq_diag gam
 rep_vec(:,1:9) = []; % remove the means...
 %% Now classify
 
-fid = fopen('test_ind.txt','w');
+fid = fopen('..\code\methods\BIQI\test_ind.txt','w');
 for j = 1:size(rep_vec,1)
     fprintf(fid,'%d ',j);
     for k = 1:size(rep_vec,2)
@@ -130,15 +130,15 @@ for j = 1:size(rep_vec,1)
 end
 fclose(fid);
 
-system(['..\code\methods\BIQI\svm-scale -r ..\code\BIQI\range2 test_ind.txt >> test_ind_scaled']);
-system(['..\code\methods\BIQI\svm-predict -b 1 test_ind_scaled ..\code\methods\BIQI\model_89 output_89']);
-delete test_ind.txt test_ind_scaled
+system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2 ..\code\methods\BIQI\test_ind.txt >> ..\code\methods\BIQI\test_ind_scaled']);
+system(['..\code\methods\BIQI\svm-predict -b 1 ..\code\methods\BIQI\test_ind_scaled ..\code\methods\BIQI\model_89 ..\code\methods\BIQI\output_89']);
+delete ..\code\methods\BIQI\test_ind.txt ..\code\methods\BIQI\test_ind_scaled
 
 %% Quality along each dimension
 
 % Write out SVM compatible
 
-fid = fopen('test_ind.txt','w');
+fid = fopen('..\code\methods\BIQI\test_ind.txt','w');
 for j = 1:size(rep_vec,1)
     fprintf(fid,'%f ',j);
     for k = 1:size(rep_vec,2)
@@ -149,46 +149,46 @@ end
 fclose(fid);
 
 % Jp2k quality
-system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_jp2k test_ind.txt >> test_ind_scaled']);
-system(['..\code\methods\BIQI\svm-predict  -b 1 test_ind_scaled ..\code\methods\BIQI\model_89_jp2k output_blur']);
-load output_blur
+system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_jp2k ..\code\methods\BIQI\test_ind.txt >> ..\code\methods\BIQI\test_ind_scaled']);
+system(['..\code\methods\BIQI\svm-predict  -b 1 ..\code\methods\BIQI\test_ind_scaled ..\code\methods\BIQI\model_89_jp2k ..\code\methods\BIQI\output_blur']);
+load ..\code\methods\BIQI\output_blur
 jp2k_score = output_blur;
-delete output_blur test_ind_scaled
+delete ..\code\methods\BIQI\output_blur ..\code\methods\BIQI\test_ind_scaled
 
 % JPEG quality
 jpeg_score  = jpeg_quality_score(im);
 
 
 % WN quality
-system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_wn test_ind.txt >> test_ind_scaled']);
-system(['..\code\methods\BIQI\svm-predict -b 1 test_ind_scaled ..\code\methods\BIQI\model_89_wn output_blur']);
-load output_blur
+system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_wn ..\code\methods\BIQI\test_ind.txt >> ..\code\methods\BIQI\test_ind_scaled']);
+system(['..\code\methods\BIQI\svm-predict -b 1 ..\code\methods\BIQI\test_ind_scaled ..\code\methods\BIQI\model_89_wn ..\code\methods\BIQI\output_blur']);
+load ..\code\methods\BIQI\output_blur
 wn_score = output_blur;
-delete output_blur test_ind_scaled
+delete ..\code\methods\BIQI\output_blur ..\code\methods\BIQI\test_ind_scaled
 
 
 % Blur quality
-system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_blur test_ind.txt >> test_ind_scaled']);
-system(['..\code\methods\BIQI\svm-predict  -b 1 test_ind_scaled ..\code\methods\BIQI\model_89_blur output_blur']);
-load output_blur
+system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_blur ..\code\methods\BIQI\test_ind.txt >> ..\code\methods\BIQI\test_ind_scaled']);
+system(['..\code\methods\BIQI\svm-predict  -b 1 ..\code\methods\BIQI\test_ind_scaled ..\code\methods\BIQI\model_89_blur ..\code\methods\BIQI\output_blur']);
+load ..\code\methods\BIQI\output_blur
 blur_score = output_blur;
-delete output_blur test_ind_scaled
+delete ..\code\methods\BIQI\output_blur ..\code\methods\BIQI\test_ind_scaled
 
 % FF quality
-system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_ff test_ind.txt >> test_ind_scaled']);
-system(['..\code\methods\BIQI\svm-predict  -b 1 test_ind_scaled ..\code\methods\BIQI\model_89_ff output_blur']);
-load output_blur
+system(['..\code\methods\BIQI\svm-scale -r ..\code\methods\BIQI\range2_ff ..\code\methods\BIQI\test_ind.txt >> ..\code\methods\BIQI\test_ind_scaled']);
+system(['..\code\methods\BIQI\svm-predict  -b 1 ..\code\methods\BIQI\test_ind_scaled ..\code\methods\BIQI\model_89_ff ..\code\methods\BIQI\output_blur']);
+load ..\code\methods\BIQI\output_blur
 ff_score = output_blur;
 
 
-delete output_blur
-delete test_ind.txt test_ind_scaled
+delete ..\code\methods\BIQI\output_blur
+delete ..\code\methods\BIQI\test_ind.txt ..\code\methods\BIQI\test_ind_scaled
 
 
 %% Final pooling
 
 % figure out probabilities
-fid = fopen('output_89','r');
+fid = fopen('..\code\methods\BIQI\output_89','r');
 fgetl(fid);
 C = textscan(fid,'%f %f %f %f %f %f');
 output = [C{1} C{2} C{3} C{4} C{5} C{6}];
@@ -196,5 +196,5 @@ fclose(fid);
 probs = output(:,2:end);
 scores  = [jp2k_score jpeg_score wn_score blur_score ff_score];
 quality = sum(probs.*scores,2);
-delete output_89 
+delete ..\code\methods\BIQI\output_89 
 clc

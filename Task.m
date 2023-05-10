@@ -3,16 +3,19 @@ classdef Task
         method function_handle
         paths
         fileName
+        functionDir
     end
     
     methods
-        function obj = init(obj, method, paths, fileName)
+        function obj = init(obj, method, paths, fileName, functionDir)
             obj.method = method;
             obj.paths = paths;
             obj.fileName = fileName;
+            obj.functionDir = functionDir;
         end
 
         function execute(obj)
+            addpath(genpath(obj.functionDir));
             n = length(obj.paths);
             scores = zeros(n, 1);
             times = zeros(n, 1);
@@ -22,6 +25,7 @@ classdef Task
                 times(i) = milliseconds(time);
             end 
             save(obj.fileName, 'scores', 'times');
+            rmpath(genpath(obj.functionDir));
         end
     end
 
