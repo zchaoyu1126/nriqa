@@ -10,12 +10,12 @@ function main()
         @iqa_duan, @iqa_maxpool, @iqa_mlv, @iqa_rise, @iqa_sseq};
 
     % 根据需要修改参与测试的方法
-    % methods = {'ARISM', 'BIBLE', 'BIQI', 'BRISQUE', 'CPBDM', ...
+    % methods = {'ARISM', 'BIBLE', 'BIQI', 'BRISQUE', 'CPBDM', 'DUAN', ...
     %    'MAXPOOL', 'MLV', 'RISE', 'SSEQ'};
     methods = {'MLV'};
     
     % 根据需要修改参与测试的数据集
-    datasets = {'tid2008', 'tid2013', 'csiq', 'live'};
+    datasets = {'live'};
 
     time_stamp = datestr(now, 30);
     folder = sprintf("./result/%s", time_stamp); %%定义变量
